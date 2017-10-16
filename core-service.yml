@@ -1,11 +1,45 @@
+spring:
+  redis:
+    #host: 192.168.99.100
+    host: 127.0.0.1
+    port: 6379
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/screenhub
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 1
+    lease-expiration-duration-in-seconds: 2
+  client:
+    serviceUrl:
+      defaultZone: "http://localhost:8761/eureka"
+    healthcheck:
+      enabled: true
+    lease:
+      duration: 5
+
 server:
-  port: 8889
+  port: 9900
 
+# TODO: remove jdbc and hibernate config
 jdbc:
-  driverClassName: org.postgresql.Driver
-  url: jdbc:postgresql://localhost:5432/screenhub
-
+  driverClassName: "org.postgresql.Driver"
+  url: "jdbc:postgresql://localhost:5432/screenhub"
 hibernate:
-  dialect: org.hibernate.dialect.PostgreSQLDialect
+  dialect: "org.hibernate.dialect.PostgreSQLDialect"
   show_sql: true
   format_sql: true
+
+aws:
+  iot:
+    topic: "development/players/"
+
+jpa:
+  properties:
+    hibernate:
+      search:
+        default:
+          directory_provider: filesystem
+          indexBase: c:\\indexFiles
